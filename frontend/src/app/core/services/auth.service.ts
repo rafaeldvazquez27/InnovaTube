@@ -9,21 +9,20 @@ import { LoginResponse } from '../models/login-response';
   providedIn: 'root',
 })
 export class AuthService {
- 
+
   private http = inject(HttpClient);
   private api = 'http://localhost:3000/api/auth';
 
-  login(email: string, password: string): boolean {
+  login(email: string, password: string) {
 
-    if (email === 'admin@innovatube.com' &&
-        password === '123456') {
+    return this.http.post<any>(
+      `${this.api}/login`,
+      {
+        email,
+        password
+      }
+    );
 
-      localStorage.setItem('token', 'jwt-temporal');
-      return true;
-
-    }
-
-    return false;
   }
 
   logout(): void {

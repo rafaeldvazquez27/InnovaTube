@@ -29,16 +29,30 @@ export class Login {
 
     const { email, password } = this.loginForm.getRawValue();
 
-    const success = this.authService.login(
+    this.authService.login(
       email!,
       password!
-    );
+    ).subscribe({
 
-    if (success) {
-      this.router.navigate(['/home']);
-    } else {
-      alert('Correo o contraseña incorrectos.');
-    }
+      next: (response) => {
+
+        localStorage.setItem(
+          'token',
+          response.token
+        );
+
+        this.router.navigate(['/home']);
+
+      },
+
+      error: () => {
+
+        alert('Correo o contraseña incorrectos.');
+
+      }
+
+    });
+
   }
 
 }
