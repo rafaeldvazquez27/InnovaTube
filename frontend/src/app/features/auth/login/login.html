@@ -1,3 +1,84 @@
-<h1>Login</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
 
-<p>Bienvenido a InnovaTube</p>
+            <div class="card shadow">
+                <div class="card-body">
+
+                    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+
+                            <input
+                                id="email"
+                                type="email"
+                                class="form-control"
+                                formControlName="email">
+
+                            @if (loginForm.controls.email.touched &&
+                            loginForm.controls.email.invalid) {
+
+                                <div class="text-danger mt-1">
+
+                                    @if (loginForm.controls.email.errors?.['required']) {
+                                        <small>El correo es obligatorio.</small>
+                                    }
+
+                                    @if (loginForm.controls.email.errors?.['email']) {
+                                        <small>Ingrese un correo válido.</small>
+                                    }
+
+                                </div>
+
+                            }
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+
+                            <input
+                                id="password"
+                                type="password"
+                                class="form-control"
+                                formControlName="password">
+
+                            @if (loginForm.controls.password.touched &&
+                            loginForm.controls.password.invalid) {
+
+                                <div class="text-danger mt-1">
+
+                                    @if (loginForm.controls.password.errors?.['required']) {
+                                        <small>La contraseña es obligatoria.</small>
+                                    }
+
+                                    @if (loginForm.controls.password.errors?.['minlength']) {
+                                        <small>Debe contener al menos 6 caracteres.</small>
+                                    }
+
+                                </div>
+
+                            }
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                            [disabled]="loginForm.invalid">
+
+                            Iniciar Sesión
+
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
