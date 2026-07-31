@@ -1,4 +1,5 @@
 import prisma from "../config/prisma";
+import jwt from "jsonwebtoken";
 
 export class AuthService {
 
@@ -10,6 +11,17 @@ export class AuthService {
             }
         });
 
+        const token = jwt.sign(
+            { 
+                id: user?.id,
+                email: user?.email
+            },
+            process.env.JWT_SECRET!,
+            {
+                expiresIn: "1h"
+            }
+        );
+
         if (!user) {
             return null;
         }
@@ -19,7 +31,7 @@ export class AuthService {
         }
 
         return {
-            token: "jwt-temporal",
+            token,
             user: {
                 id: user.id,
                 name: user.name,
