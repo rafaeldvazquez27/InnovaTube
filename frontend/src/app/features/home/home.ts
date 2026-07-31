@@ -42,8 +42,6 @@ export class Home {
 
     const favorite = {
 
-      userId: 1, // Temporalmente
-
       videoId: video.id.videoId,
 
       title: video.snippet.title,
@@ -62,10 +60,25 @@ export class Home {
 
       },
 
-      error: (error) => {
+      error: (err) => {
 
-        console.error(error);
-        alert('No fue posible agregar el favorito');
+        if (err.status === 409) {
+
+          alert("Este video ya está en tus favoritos.");
+
+          return;
+
+        }
+
+        if (err.status === 401) {
+
+          alert("Tu sesión ha expirado. Inicia sesión nuevamente.");
+
+          return;
+
+        }
+
+        alert("Ocurrió un error al guardar el favorito.");
 
       }
 

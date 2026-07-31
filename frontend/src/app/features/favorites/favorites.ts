@@ -19,49 +19,36 @@ export class Favorites implements OnInit {
   favorites: any[] = [];
   searchText = '';
 
-  constructor() {
-    console.log('Constructor Favorites');
-  }
+  constructor() {  }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
-
     this.loadFavorites();
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
   }
 
   loadFavorites() {
 
-    console.log('Entró a loadFavorites');
+  this.favoriteService.getFavorites().subscribe({
 
-    this.favoriteService.getByUser(1).subscribe({
+    next: (data: any) => {
 
-      next: (data: any) => {
+      this.favorites = data;
 
-        console.log('Respuesta API:', data);
+      this.cdr.detectChanges();
 
-        this.favorites = data;
-        this.cdr.detectChanges();
+    },
 
-        console.log('Asignado:', this.favorites);
-        console.log('Length después de asignar:', this.favorites.length);
+    error: (err) => {
 
+      console.error(err);
 
-      },
+    }
 
-      error: (err) => {
+  });
 
-        console.error('Error:', err);
-
-      }
-
-    });
-
-
-  }
+}
 
   removeFavorite(id: number) {
     this.favoriteService.remove(id).subscribe(() => {

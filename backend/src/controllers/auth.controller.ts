@@ -38,9 +38,6 @@ export class AuthController {
 
     async register(req: Request, res: Response) {
 
-        console.log("Entro al register");
-        console.log(req.body);
-
         try {
 
             const { name, email, password } = req.body;

@@ -4,6 +4,17 @@ export class FavoriteService {
 
     async add(data: any) {
 
+        const exists = await prisma.favorite.findFirst({
+            where: {
+                userId: data.userId,
+                videoId: data.videoId
+            }
+        });
+
+        if (exists) {
+            throw new Error("Este video ya está en favoritos.");
+        }
+
         return await prisma.favorite.create({
             data
         });

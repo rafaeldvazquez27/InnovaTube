@@ -1,18 +1,31 @@
 import { Response } from "express";
 import { FavoriteService } from "../services/favorite.service";
-import { AuthRequest } from "../middleware/auth.middleware"; 
+import { AuthRequest } from "../middleware/auth.middleware";
 export class FavoriteController {
 
     private service = new FavoriteService();
 
     async add(req: AuthRequest, res: Response) {
 
-        const favorite = await this.service.add({
-            ...req.body,
-            userId: req.userId
-        });
+        try {
 
-        return res.status(201).json(favorite);
+            const favorite = await this.service.add({
+                ...req.body,
+                userId: req.userId
+            });
+
+            return res.status(201).json(favorite);
+
+        } catch (error) {
+
+            return res.status(409).json({
+                success: false,
+                message: error instanceof Error
+                    ? error.message
+                    : "No fue posible agregar el favorito."
+            });
+
+        }
 
     }
 

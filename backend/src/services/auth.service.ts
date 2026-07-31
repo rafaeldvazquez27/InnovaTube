@@ -1,7 +1,7 @@
 import prisma from "../config/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
-import { genereateToken } from "../utils/jwt";
+import { generateToken } from "../utils/jwt";
 
 export class AuthService {
 
@@ -18,15 +18,7 @@ export class AuthService {
         }
 
         const isValid = await bcrypt.compare(password, user.password);
-        const token = genereateToken(user.id);
-
-        console.log(user);
-
-        console.log("Password recibida:", password);
-
-        console.log("Hash BD:", user.password);
-
-        console.log("isValid:", isValid);
+        const token = generateToken(user.id);
 
         if (!isValid) {
             return null;

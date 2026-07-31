@@ -9,9 +9,6 @@ async function main() {
             password: '123456'
         }
     });
-
-    console.log('Usuario creado');
-
 }
 
 main()

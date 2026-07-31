@@ -10,27 +10,48 @@ export class FavoriteService {
 
   private api = 'http://localhost:3000/api/favorites';
 
-  add(favorite: any) {
+  getFavorites() {
 
-    return this.http.post(
+    const token = localStorage.getItem('token');
+
+    return this.http.get(
       this.api,
-      favorite
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
 
   }
 
-  getByUser(userId: number) {
+  add(favorite: any) {
 
-    return this.http.get(
-      `${this.api}/${userId}`
+    const token = localStorage.getItem('token');
+
+    return this.http.post(
+      this.api,
+      favorite,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
 
   }
 
   remove(id: number) {
 
+    const token = localStorage.getItem('token');
+
     return this.http.delete(
-      `${this.api}/${id}`
+      `${this.api}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
 
   }

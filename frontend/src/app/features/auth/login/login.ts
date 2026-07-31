@@ -37,8 +37,6 @@ export class Login {
 
       next: (response) => {
 
-        console.log('LOGIN RESPONSE:', response);
-
         localStorage.setItem('token', response.token);
 
         localStorage.setItem(

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const SECRET = 'InnovaTubeSecret2026';
 
-export function genereateToken(userId: number){
+export function generateToken(userId: number){
     return jwt.sign(
         { userId },
         SECRET,
