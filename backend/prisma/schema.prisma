@@ -18,6 +18,8 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+
+  favorites Favorite[]
 }
 
 model Video {
@@ -27,4 +29,15 @@ model Video {
   url         String
   thumbnail   String
   createdAt   DateTime @default(now())
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  videoId   String
+  title     String
+  thumbnail String
+  channel   String
+
+  user User @relation(fields: [userId], references: [id])
 }
