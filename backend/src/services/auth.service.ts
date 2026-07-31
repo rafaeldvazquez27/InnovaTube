@@ -1,21 +1,38 @@
+import prisma from "../config/prisma";
+
 export class AuthService {
 
-    login(email: string, password: string) {
+    async login(email: string, password: string) {
 
-        if (
-            email === 'admin@innovatube.com' &&
-            password === '123456'
-        ) {
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        });
 
-            return {
-                success: true,
-                token: 'jwt-temporal'
-            };
-
+        if (!user) {
+            return null;
         }
 
-        return null;
+        if (user.password !== password) {
+            return null;
+        }
+
+        return {
+            success: true,
+            token: 'jwt-temporal',
+            user
+        };
 
     }
 
+    async register(name: string, email: string, password: string) {
+        return await prisma.user.create({
+            data: {
+                name,
+                email,
+                password
+            }
+        });
+    }
 }

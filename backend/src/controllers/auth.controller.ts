@@ -5,23 +5,59 @@ export class AuthController {
 
     private authService = new AuthService();
 
-    login(req: Request, res: Response) {
+    async login(req: Request, res: Response) {
 
-        const { email, password } = req.body;
+        try {
 
-        const result = this.authService.login(
-            email,
-            password
-        );
+            const { email, password } = req.body;
 
-        if (!result) {
-            return res.status(401).json({
+            const result = await this.authService.login(
+                email,
+                password
+            );
+
+            if (!result) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Credenciales inválidas'
+                });
+            }
+
+            return res.json(result);
+
+        } catch {
+
+            return res.status(500).json({
                 success: false,
-                message: 'Credenciales inválidas'
+                message: 'Error interno del servidor'
             });
+
         }
 
-        return res.json(result);
+    }
+
+    async register(req: Request, res: Response) {
+
+        try {
+
+            const { name, email, password } = req.body;
+
+            const user = await this.authService.register(
+                name,
+                email,
+                password
+            );
+
+            return res.status(201).json(user);
+
+        } catch {
+
+            return res.status(500).json({
+                message: 'Error al crear el usuario'
+            });
+
+        }
+
     }
 
 }
