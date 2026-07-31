@@ -4,15 +4,9 @@
 
     <div class="input-group mb-4">
 
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Buscar..."
-            [(ngModel)]="searchText">
+        <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchText">
 
-        <button
-            class="btn btn-primary"
-            (click)="searchVideos()">
+        <button class="btn btn-primary" (click)="searchVideos()">
 
             Buscar
 
@@ -24,40 +18,37 @@
 
         @for(video of videos; track video.id.videoId){
 
-            <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4">
 
-                <div class="card h-100">
+            <div class="card h-100">
 
-                    <img
-                        class="card-img-top"
-                        [src]="video.snippet.thumbnails.medium.url">
+                <img class="card-img-top" [src]="video.snippet.thumbnails.medium.url">
 
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <h6>
+                    <h6>
 
-                            {{ video.snippet.title }}
+                        {{ video.snippet.title }}
 
-                        </h6>
+                    </h6>
 
-                        <p>
+                    <p>
 
-                            {{ video.snippet.channelTitle }}
+                        {{ video.snippet.channelTitle }}
 
-                        </p>
+                    </p>
 
-                        <button
-                            class="btn btn-outline-danger w-100">
+                    <button class="btn btn-outline-danger w-100" (click)="addFavorite(video)">
 
-                            ❤️ Favorito
+                        ❤️ Favorito
 
-                        </button>
-
-                    </div>
+                    </button>
 
                 </div>
 
             </div>
+
+        </div>
 
         }
 

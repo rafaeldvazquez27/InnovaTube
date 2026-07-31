@@ -1,1 +1,35 @@
-<p>favorites works!</p>
+<div class="container mt-4">
+
+  <h2>Mis Favoritos</h2>
+
+  <p>Total: {{ favorites.length }}</p>
+
+  <div class="row">
+
+    <div class="col-md-4 mb-4" *ngFor="let favorite of favorites">
+
+      <div class="card">
+
+        <img [src]="favorite.thumbnail" class="card-img-top" alt="Miniatura">
+
+        <div class="card-body">
+
+          <h6>{{ favorite.title }}</h6>
+
+          <p>{{ favorite.channel }}</p>
+
+          <button class="btn btn-danger w-100" (click)="removeFavorite(favorite.id)">
+
+            Quitar Favorito
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

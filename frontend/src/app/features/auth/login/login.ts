@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -36,9 +37,13 @@ export class Login {
 
       next: (response) => {
 
+        console.log('LOGIN RESPONSE:', response);
+
+        localStorage.setItem('token', response.token);
+
         localStorage.setItem(
-          'token',
-          response.token
+          'user',
+          JSON.stringify(response.user)
         );
 
         this.router.navigate(['/home']);

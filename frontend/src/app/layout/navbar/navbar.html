@@ -1,1 +1,53 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" routerLink="/home">
+
+            InnovaTube
+
+        </a>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link" routerLink="/home">
+
+                        Inicio
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" routerLink="/favorites">
+
+                        Favoritos
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <span class="navbar-text me-3">
+
+                {{ userName }}
+
+            </span>
+
+            <button class="btn btn-outline-light" (click)="logout()">
+
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>

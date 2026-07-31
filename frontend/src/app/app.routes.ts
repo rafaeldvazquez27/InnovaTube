@@ -31,7 +31,8 @@ export const routes: Routes = [
             },
             { 
                 path: 'favorites',
-                component: Favorites
+                component: Favorites,
+                canActivate: [authGuard]
             }
         ]
     }
