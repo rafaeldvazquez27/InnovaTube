@@ -19,9 +19,12 @@ export class AuthService {
         }
 
         return {
-            success: true,
-            token: 'jwt-temporal',
-            user
+            token: "jwt-temporal",
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
         };
 
     }

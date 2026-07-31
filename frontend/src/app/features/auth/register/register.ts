@@ -43,8 +43,9 @@ export class Register {
 
       },
 
-      error: () => {
+      error: (error) => {
 
+        console.log(error);
         alert('No fue posible crear el usuario');
 
       }

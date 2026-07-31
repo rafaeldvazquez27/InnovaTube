@@ -38,6 +38,9 @@ export class AuthController {
 
     async register(req: Request, res: Response) {
 
+        console.log("Entro al register");
+        console.log(req.body);
+
         try {
 
             const { name, email, password } = req.body;
@@ -50,8 +53,9 @@ export class AuthController {
 
             return res.status(201).json(user);
 
-        } catch {
+        } catch (error) {
 
+            console.log(error)
             return res.status(500).json({
                 message: 'Error al crear el usuario'
             });
