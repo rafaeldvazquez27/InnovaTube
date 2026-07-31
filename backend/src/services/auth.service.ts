@@ -1,5 +1,7 @@
 import prisma from "../config/prisma";
 import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import { genereateToken } from "../utils/jwt";
 
 export class AuthService {
 
@@ -11,22 +13,22 @@ export class AuthService {
             }
         });
 
-        const token = jwt.sign(
-            { 
-                id: user?.id,
-                email: user?.email
-            },
-            process.env.JWT_SECRET!,
-            {
-                expiresIn: "1h"
-            }
-        );
-
         if (!user) {
             return null;
         }
 
-        if (user.password !== password) {
+        const isValid = await bcrypt.compare(password, user.password);
+        const token = genereateToken(user.id);
+
+        console.log(user);
+
+        console.log("Password recibida:", password);
+
+        console.log("Hash BD:", user.password);
+
+        console.log("isValid:", isValid);
+
+        if (!isValid) {
             return null;
         }
 
@@ -42,11 +44,14 @@ export class AuthService {
     }
 
     async register(name: string, email: string, password: string) {
+
+        const hasedPassword = await bcrypt.hash(password, 10);
+
         return await prisma.user.create({
             data: {
                 name,
                 email,
-                password
+                password: hasedPassword
             }
         });
     }

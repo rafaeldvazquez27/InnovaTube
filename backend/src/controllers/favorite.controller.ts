@@ -1,29 +1,30 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { FavoriteService } from "../services/favorite.service";
-
+import { AuthRequest } from "../middleware/auth.middleware"; 
 export class FavoriteController {
 
     private service = new FavoriteService();
 
-    async add(req: Request, res: Response) {
+    async add(req: AuthRequest, res: Response) {
 
-        const favorite = await this.service.add(req.body);
+        const favorite = await this.service.add({
+            ...req.body,
+            userId: req.userId
+        });
 
         return res.status(201).json(favorite);
 
     }
 
-    async getByUser(req: Request, res: Response) {
+    async getByUser(req: AuthRequest, res: Response) {
 
-        const userId = Number(req.params.userId);
-
-        const favorites = await this.service.getByUser(userId);
+        const favorites = await this.service.getByUser(req.userId!);
 
         return res.json(favorites);
 
     }
 
-    async remove(req: Request, res: Response) {
+    async remove(req: AuthRequest, res: Response) {
 
         await this.service.remove(Number(req.params.id));
 
